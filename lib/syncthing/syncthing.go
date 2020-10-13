@@ -299,10 +299,6 @@ func (a *App) startup() error {
 		}
 	}
 
-	if isSuperUser() {
-		slog.Warn("Syncthing should not run as a privileged or system user; please consider using a normal user account")
-	}
-
 	a.evLogger.Log(events.StartupComplete, map[string]string{
 		"myID": a.myID.String(),
 	})
