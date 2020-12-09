@@ -454,8 +454,8 @@ func updateInProgressSet(event events.Event, inProgress map[string]struct{}) {
 // minute. For delays longer than 1 minute, the delay and timeout are equal.
 func notifyTimeout(eventDelayS int) time.Duration {
 	shortDelayS := 10
-	shortDelayMultiplicator := 6
-	longDelayS := 60
+	shortDelayMultiplicator := 30
+	longDelayS := 300
 	longDelayTimeout := time.Duration(1) * time.Minute
 	if eventDelayS < shortDelayS {
 		return time.Duration(eventDelayS*shortDelayMultiplicator) * time.Second
