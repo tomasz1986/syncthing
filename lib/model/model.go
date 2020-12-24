@@ -418,45 +418,10 @@ func (m *model) addAndStartFolderLockedWithIgnores(cfg config.FolderConfiguratio
 	}
 	m.folderVersioners[folder] = ver
 
-	m.warnAboutOverwritingProtectedFiles(cfg, ignores)
-
 	p := folderFactory(m, ignores, cfg, ver, m.evLogger, m.folderIOLimiter)
 	m.folderRunners.Add(folder, p)
 
 	l.Infof("Ready to synchronize %s (%s)", cfg.Description(), cfg.Type)
-}
-
-func (m *model) warnAboutOverwritingProtectedFiles(cfg config.FolderConfiguration, ignores *ignore.Matcher) {
-	if cfg.Type == config.FolderTypeSendOnly {
-		return
-	}
-
-	// This is a bit of a hack.
-	ffs := cfg.Filesystem()
-	if ffs.Type() != fs.FilesystemTypeBasic {
-		return
-	}
-	folderLocation := ffs.URI()
-
-	var filesAtRisk []string
-	for _, protectedFilePath := range m.protectedFiles {
-		// check if file is synced in this folder
-		if protectedFilePath != folderLocation && !fs.IsParent(protectedFilePath, folderLocation) {
-			continue
-		}
-
-		// check if file is ignored
-		relPath, _ := filepath.Rel(folderLocation, protectedFilePath)
-		if ignores.Match(relPath).IsIgnored() {
-			continue
-		}
-
-		filesAtRisk = append(filesAtRisk, protectedFilePath)
-	}
-
-	if len(filesAtRisk) > 0 {
-		l.Warnln("Some protected files may be overwritten and cause issues. See https://docs.syncthing.net/users/config.html#syncing-configuration-files for more information. The at risk files are:", strings.Join(filesAtRisk, ", "))
-	}
 }
 
 func (m *model) removeFolder(cfg config.FolderConfiguration) {
