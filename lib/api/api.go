@@ -84,6 +84,7 @@ type service struct {
 	connectionsService   connections.Service
 	fss                  model.FolderSummaryService
 	urService            *ur.Service
+	cpu                  Rater
 	noUpgrade            bool
 	tlsDefaultCommonName string
 	configChanged        chan struct{} // signals intentional listener close due to config change
@@ -101,13 +102,17 @@ type service struct {
 
 var _ config.Verifier = &service{}
 
+type Rater interface {
+	Rate() float64
+}
+
 type Service interface {
 	suture.Service
 	config.Committer
 	WaitForStart() error
 }
 
-func New(id protocol.DeviceID, cfg config.Wrapper, assetDir, tlsDefaultCommonName string, m model.Model, defaultSub, diskSub events.BufferedSubscription, evLogger events.Logger, discoverer discover.Manager, connectionsService connections.Service, urService *ur.Service, fss model.FolderSummaryService, errors, systemLog slogutil.Recorder, noUpgrade bool, miscDB *db.Typed) Service {
+func New(id protocol.DeviceID, cfg config.Wrapper, assetDir, tlsDefaultCommonName string, m model.Model, defaultSub, diskSub events.BufferedSubscription, evLogger events.Logger, discoverer discover.Manager, connectionsService connections.Service, urService *ur.Service, fss model.FolderSummaryService, errors, systemLog slogutil.Recorder, cpu Rater, noUpgrade bool, miscDB *db.Typed) Service {
 	return &service{
 		id:      id,
 		cfg:     cfg,
@@ -124,6 +129,7 @@ func New(id protocol.DeviceID, cfg config.Wrapper, assetDir, tlsDefaultCommonNam
 		urService:            urService,
 		guiErrors:            errors,
 		systemLog:            systemLog,
+		cpu:                  cpu,
 		noUpgrade:            noUpgrade,
 		tlsDefaultCommonName: tlsDefaultCommonName,
 		configChanged:        make(chan struct{}),
@@ -330,7 +336,7 @@ func (s *service) Serve(ctx context.Context) error {
 	configBuilder.registerGUI("/rest/config/gui")
 
 	// Deprecated config endpoints
-	configBuilder.registerConfigDeprecated("/rest/system/config") // POST instead of PUT
+	configBuilder.registerConfig("/rest/system/config") // POST instead of PUT
 	configBuilder.registerConfigInsync("/rest/system/config/insync")
 
 	// Debug endpoints, not for general use
@@ -1059,7 +1065,9 @@ func (s *service) getSystemStatus(w http.ResponseWriter, _ *http.Request) {
 
 	res["connectionServiceStatus"] = s.connectionsService.ListenerStatus()
 	res["lastDialStatus"] = s.connectionsService.ConnectionStatus()
-	res["cpuPercent"] = 0 // deprecated from API
+	// cpuUsage.Rate() is in milliseconds per second, so dividing by ten
+	// gives us percent
+	res["cpuPercent"] = s.cpu.Rate() / 10 / float64(runtime.NumCPU())
 	res["pathSeparator"] = string(filepath.Separator)
 	res["urVersionMax"] = ur.Version
 	res["uptime"] = s.urService.UptimeS()
