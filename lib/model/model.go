@@ -1300,7 +1300,7 @@ func (m *model) ccHandleFolders(folders []protocol.Folder, deviceCfg config.Devi
 			if err := m.db.AddOrUpdatePendingFolder(folder.ID, of, deviceID); err != nil {
 				l.Warnf("Failed to persist pending folder entry to database: %v", err)
 			}
-			indexSenders.addPending(cfg, ccDeviceInfos[folder.ID])
+			indexSenders.addPending(folder.ID, ccDeviceInfos[folder.ID])
 			updatedPending = append(updatedPending, updatedPendingFolder{
 				FolderID:         folder.ID,
 				FolderLabel:      folder.Label,
@@ -1324,7 +1324,7 @@ func (m *model) ccHandleFolders(folders []protocol.Folder, deviceCfg config.Devi
 		}
 
 		if cfg.Paused {
-			indexSenders.addPending(cfg, ccDeviceInfos[folder.ID])
+			indexSenders.addPending(folder.ID, ccDeviceInfos[folder.ID])
 			continue
 		}
 
@@ -1366,7 +1366,7 @@ func (m *model) ccHandleFolders(folders []protocol.Folder, deviceCfg config.Devi
 			// Shouldn't happen because !cfg.Paused, but might happen
 			// if the folder is about to be unpaused, but not yet.
 			l.Debugln("ccH: no fset", folder.ID)
-			indexSenders.addPending(cfg, ccDeviceInfos[folder.ID])
+			indexSenders.addPending(folder.ID, ccDeviceInfos[folder.ID])
 			continue
 		}
 
