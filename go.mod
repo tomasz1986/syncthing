@@ -19,7 +19,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.2
 	github.com/greatroar/blobloom v0.7.0
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/jackpal/gateway v1.0.7
@@ -40,7 +40,7 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sasha-s/go-deadlock v0.2.0
-	github.com/shirou/gopsutil/v3 v3.21.4
+	github.com/shirou/gopsutil/v3 v3.21.5
 	github.com/syncthing/notify v0.0.0-20210308121556-f45149b04939
 	github.com/syndtr/goleveldb v1.0.1-0.20200815071216-d9e9293bd0f7
 	github.com/thejerf/suture/v4 v4.0.1
@@ -52,7 +52,6 @@ require (
 	golang.org/x/text v0.3.6
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba
 	golang.org/x/tools v0.1.0
-	google.golang.org/protobuf v1.26.0
 )
 
 go 1.14
