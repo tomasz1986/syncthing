@@ -1731,7 +1731,7 @@ func (f *sendReceiveFolder) dbUpdaterRoutine(dbUpdateChan <-chan dbUpdateJob) {
 		// sync directories
 		for dir := range changedDirs {
 			delete(changedDirs, dir)
-			if !f.FolderConfiguration.DisableFsync {
+			if !build.IsWindows && !f.FolderConfiguration.DisableFsync {
 				fd, err := f.mtimefs.Open(dir)
 				if err != nil {
 					l.Debugf("fsync %q failed: %v", dir, err)
