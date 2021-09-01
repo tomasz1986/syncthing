@@ -181,8 +181,10 @@ func (f *FolderConfiguration) CreateMarker() error {
 	// Sync & hide the containing directory
 	if dir, err := ffs.Open("."); err != nil {
 		l.Debugln("folder marker: open . failed:", err)
-	} else if err := dir.Sync(); err != nil {
-		l.Debugln("folder marker: fsync . failed:", err)
+	} else if !build.IsWindows {
+		if err := dir.Sync(); err != nil {
+			l.Debugln("folder marker: fsync . failed:", err)
+		}
 	}
 	ffs.Hide(DefaultMarkerName)
 
