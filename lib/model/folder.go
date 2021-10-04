@@ -387,17 +387,6 @@ func (f *folder) pull() (success bool, err error) {
 		return false, err
 	}
 
-	// Send only folder doesn't do any io, it only checks for out-of-sync
-	// items that differ in metadata and updates those.
-	if f.Type != config.FolderTypeSendOnly {
-		f.setState(FolderSyncWaiting)
-
-		if err := f.ioLimiter.TakeWithContext(f.ctx, 1); err != nil {
-			return true, err
-		}
-		defer f.ioLimiter.Give(1)
-	}
-
 	startTime := time.Now()
 
 	// Check if the ignore patterns changed.
