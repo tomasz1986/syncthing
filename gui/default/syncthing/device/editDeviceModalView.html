@@ -29,9 +29,6 @@
               </div>
             </div>
             <div ng-if="editingDeviceNew()">
-              <datalist id="discovery-list">
-                <option ng-repeat="id in discoveryUnknown" value="{{id}}" />
-              </datalist>
               <div class="help-block" ng-if="discoveryUnknown && discoveryUnknown.length !== 0">
                 <span translate>You can also select one of these nearby devices:</span>
                 <ul>
