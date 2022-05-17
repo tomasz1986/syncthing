@@ -1,0 +1,61 @@
+/*
+// Copyright (C) 2016 The Syncthing Authors.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// You can obtain one at https://mozilla.org/MPL/2.0/.
+
+*/
+
+@import "../../theme-assets/dark/assets/css/theme.css" screen and (prefers-color-scheme: dark);
+@import "../../theme-assets/light/assets/css/theme.css" (prefers-color-scheme: light), (prefers-color-scheme: no-preference);
+
+*,
+:before,
+:after {
+	animation-delay: 0s !important;
+	animation-timing-function: step-start !important;
+	transition-delay: 0s !important;
+	transition-timing-function: step-start !important;
+}
+
+body {
+	font-family: sans-serif !important;
+	padding-bottom: 0 !important;
+}
+@media screen and (prefers-color-scheme: dark) {
+	body {
+		color: rgb(255,255,255) !important;
+	}
+}
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+	body {
+		color: rgb(0,0,0) !important;
+	}
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: sans-serif !important;
+}
+
+.form-control {
+	font-size: 100% !important;
+}
+@media screen and (prefers-color-scheme: dark) {
+	.form-control {
+		color: rgb(255,255,255) !important;
+	}
+}
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+	.form-control {
+		color: rgb(0,0,0) !important;
+	}
+}
+
+.navbar-fixed-bottom {
+	position: static !important;
+}
+
+.text-monospace {
+	font-family: monospace !important;
+}
