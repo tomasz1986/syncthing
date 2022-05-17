@@ -1,0 +1,42 @@
+/*
+// Copyright (C) 2016 The Syncthing Authors.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this file,
+// You can obtain one at https://mozilla.org/MPL/2.0/.
+
+*/
+
+@import "../../theme-assets/light/assets/css/theme.css";
+
+*,
+:before,
+:after {
+	animation-delay: 0s !important;
+	animation-timing-function: step-start !important;
+	transition-delay: 0s !important;
+	transition-timing-function: step-start !important;
+}
+
+body {
+	color: rgb(0,0,0) !important;
+	font-family: sans-serif !important;
+	padding-bottom: 0 !important;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: sans-serif !important;
+}
+
+.form-control {
+	color: rgb(0,0,0) !important;
+	font-size: 100% !important;
+}
+
+.navbar-fixed-bottom {
+	position: static !important;
+}
+
+.text-monospace {
+	font-family: monospace !important;
+}
