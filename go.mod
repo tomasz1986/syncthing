@@ -35,7 +35,7 @@ require (
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.3.0
 	github.com/minio/sha256-simd v1.0.0
 	github.com/miscreant/miscreant.go v0.0.0-20200214223636-26d376326b75
-	github.com/oschwald/geoip2-golang v1.5.0
+	github.com/oschwald/geoip2-golang v1.7.0
 	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.12.2
@@ -73,7 +73,7 @@ require (
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
-	github.com/oschwald/maxminddb-golang v1.8.0 // indirect
+	github.com/oschwald/maxminddb-golang v1.9.0 // indirect
 	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
