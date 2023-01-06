@@ -2005,7 +2005,7 @@ angular.module('syncthing.core')
             });
         };
 
-        $scope.saveDevice = function () {
+        $scope.saveDevice = function (action) {
             $scope.currentDevice.addresses = $scope.currentDevice._addressesStr.split(',').map(function (x) {
                 return x.trim();
             });
@@ -2018,7 +2018,9 @@ angular.module('syncthing.core')
             delete $scope.currentSharing;
             $scope.currentDevice = {};
             $scope.saveConfig().then(function () {
-                hideModal('#editDevice');
+                if (action !== 'switch') {
+                    hideModal('#editDevice');
+                }
             });
         };
 
@@ -2369,6 +2371,60 @@ angular.module('syncthing.core')
             }
         };
 
+        $scope.switchFolderOrDevice = function(direction) {
+            // This function can be used to switch back and forth between
+            // folders and devices. The switching works like a never-ending
+            // carousel, i.e. going back from the first item moves us to the
+            // last item, and going forth from the last item moves us to the
+            // first item. The own device with index of 0 is skipped over on
+            // purpose, as it is not supposed to be edited this way. When
+            // switching, save changes only when present and valid, and do not
+            // save them when there are none or they are invalid.
+
+            var list = '';
+            if ($scope.currentFolder._editing) {
+                var folder = $scope.currentFolder.id;
+                list = folderList($scope.folders);
+            } else if ($scope.currentDevice._editing) {
+                var device = $scope.currentDevice.deviceID;
+                list = deviceList($scope.otherDevices());
+            }
+
+            i = list.length;
+            while (i--) {
+                if ((folder && list[i].id === folder) || (device && list[i].deviceID === device)) {
+                    var index = i;
+                    if (direction === 'previous') {
+                        index = i - 1;
+                        if (!list[index] || (device && index === 0)) {
+                            index = list.length - 1;
+                        }
+                    } else if (direction === 'next') {
+                        index = i + 1;
+                        if (!list[index]) {
+                            index = 0;
+                        }
+                    }
+                    if (list[index]) {
+                        if (folder) {
+                            if ($scope.folderEditor.$dirty && $scope.folderEditor.$valid) {
+                                $scope.saveFolder('switch');
+                            }
+                            var url = window.location.href;
+                            var tab = '#' + url.split('/#')[1];
+                            $scope.editFolderExisting(list[index], tab);
+                        } else if (device) {
+                            if ($scope.deviceEditor.$dirty && $scope.deviceEditor.$valid) {
+                                $scope.saveDevice('switch');
+                            }
+                            $scope.editDeviceExisting(list[index]);
+                        }
+                    }
+                    break;
+                }
+            }
+        };
+
         $scope.editFolderExisting = function (folderCfg, initialTab) {
             $scope.currentFolder = angular.copy(folderCfg);
             $scope.currentFolder._editing = "existing";
@@ -2499,7 +2555,7 @@ angular.module('syncthing.core')
             }
         };
 
-        $scope.saveFolder = function () {
+        $scope.saveFolder = function (action) {
             if ($scope.currentFolder._editing == "new-ignores") {
                 // On modal being hidden without clicking save, the defaults will be saved.
                 $scope.ignores.saved = true;
@@ -2575,7 +2631,9 @@ angular.module('syncthing.core')
             if ($scope.currentFolder._editing == "existing") {
                 saveFolderIgnoresExisting();
                 $scope.saveConfig().then(function () {
-                    hideModal('#editFolder');
+                    if (action !== 'switch') {
+                        hideModal('#editFolder');
+                    }
                 });
                 return;
             }
