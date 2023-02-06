@@ -3,7 +3,7 @@ module github.com/syncthing/syncthing
 go 1.18
 
 require (
-	github.com/AudriusButkevicius/pfilter v0.0.10
+	github.com/AudriusButkevicius/pfilter v0.0.11
 	github.com/AudriusButkevicius/recli v0.0.6
 	github.com/alecthomas/kong v0.7.1
 	github.com/calmh/xdr v1.1.0
@@ -58,10 +58,11 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
+require github.com/calmh/incontainer v0.0.0-20221224152218-b3e71b103d7a
+
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/calmh/incontainer v0.0.0-20221224152218-b3e71b103d7a // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/golang/mock v1.6.0 // indirect
@@ -75,6 +76,10 @@ require (
 	github.com/petermattis/goid v0.0.0-20221202122410-a449aaf35945 // indirect
 	github.com/power-devops/perfstat v0.0.0-20220216144756-c35f1ee13d7c // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
+	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-19 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-20 v0.1.0 // indirect
+	github.com/quic-go/quic-go v0.32.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/exp v0.0.0-20221211140036-ad323defaf05 // indirect
