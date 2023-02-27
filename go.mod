@@ -10,7 +10,7 @@ require (
 	github.com/ccding/go-stun v0.1.4
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/chmduquesne/rollinghash v0.0.0-20180912150627-a60f8e7142b5
+	github.com/chmduquesne/rollinghash v4.0.0+incompatible
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/d4l3k/messagediff v1.2.1
 	github.com/flynn-archive/go-shlex v0.0.0-20150515145356-3f9db97f8568
@@ -58,10 +58,11 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
+require github.com/calmh/incontainer v0.0.0-20221224152218-b3e71b103d7a
+
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/calmh/incontainer v0.0.0-20221224152218-b3e71b103d7a // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/golang/mock v1.6.0 // indirect
