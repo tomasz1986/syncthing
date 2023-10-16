@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/AudriusButkevicius/recli v0.0.7-0.20220911121932-d000ce8fbf0f
-	github.com/alecthomas/kong v0.8.0
+	github.com/alecthomas/kong v0.8.1
 	github.com/calmh/incontainer v0.0.0-20221224152218-b3e71b103d7a
 	github.com/calmh/xdr v1.1.0
 	github.com/ccding/go-stun v0.1.4
