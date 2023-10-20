@@ -11,7 +11,7 @@ import (
 	"sort"
 )
 
-const defaultNumConnections = 1 // number of connections to use by default; may change in the future.
+const defaultNumConnections = 3 // number of connections to use by default; may change in the future.
 
 func (cfg DeviceConfiguration) Copy() DeviceConfiguration {
 	c := cfg
