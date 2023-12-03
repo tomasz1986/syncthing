@@ -2237,12 +2237,13 @@ angular.module('syncthing.core')
         };
 
         $scope.setDefaultsForFolderType = function () {
-            if ($scope.currentFolder.type === 'receiveencrypted') {
+            if ($scope.currentFolder.type === 'receiveonly' || $scope.currentFolder.type === 'receiveencrypted') {
                 $scope.currentFolder.fsWatcherEnabled = false;
-                $scope.currentFolder.ignorePerms = true;
+            } else if ($scope.currentFolder.type === 'receiveencrypted') {
                 delete $scope.currentFolder.versioning;
             } else {
                 $scope.currentFolder.fsWatcherEnabled = true;
+                $scope.currentFolder.ignorePerms = true;
             }
             $scope.setFSWatcherIntervalDefault();
         };
