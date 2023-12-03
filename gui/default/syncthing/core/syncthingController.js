@@ -2221,12 +2221,12 @@ angular.module('syncthing.core')
         });
 
         $scope.setFSWatcherIntervalDefault = function () {
-            var defaultRescanIntervals = [60, 3600, 3600*24];
+            var defaultRescanIntervals = [60, 3600*24, 3600*24*7];
             if (defaultRescanIntervals.indexOf($scope.currentFolder.rescanIntervalS) === -1) {
                 return;
             }
             var idx;
-            if ($scope.currentFolder.type === 'receiveencrypted') {
+            if ($scope.currentFolder.type === 'receiveonly' || $scope.currentFolder.type === 'receiveencrypted') {
                 idx = 2;
             } else if ($scope.currentFolder.fsWatcherEnabled) {
                 idx = 1;
