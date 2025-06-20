@@ -55,7 +55,7 @@ type FolderConfiguration struct {
 	Devices                 []FolderDeviceConfiguration `json:"devices" xml:"device"`
 	RescanIntervalS         int                         `json:"rescanIntervalS" xml:"rescanIntervalS,attr" default:"3600"`
 	FSWatcherEnabled        bool                        `json:"fsWatcherEnabled" xml:"fsWatcherEnabled,attr" default:"true"`
-	FSWatcherDelayS         float64                     `json:"fsWatcherDelayS" xml:"fsWatcherDelayS,attr" default:"10"`
+	FSWatcherDelayS         float64                     `json:"fsWatcherDelayS" xml:"fsWatcherDelayS,attr" default:"5"`
 	FSWatcherTimeoutS       float64                     `json:"fsWatcherTimeoutS" xml:"fsWatcherTimeoutS,attr"`
 	IgnorePerms             bool                        `json:"ignorePerms" xml:"ignorePerms,attr"`
 	AutoNormalize           bool                        `json:"autoNormalize" xml:"autoNormalize,attr" default:"true"`
@@ -302,7 +302,7 @@ func (f *FolderConfiguration) prepare(myID protocol.DeviceID, existingDevices ma
 
 	if f.FSWatcherDelayS <= 0 {
 		f.FSWatcherEnabled = false
-		f.FSWatcherDelayS = 10
+		f.FSWatcherDelayS = 5
 	} else if f.FSWatcherDelayS < 0.01 {
 		f.FSWatcherDelayS = 0.01
 	}
