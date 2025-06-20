@@ -21,7 +21,7 @@ import (
 const (
 	internalMetaPrefix     = "dbsvc"
 	lastMaintKey           = "lastMaint"
-	defaultDeleteRetention = 180 * 24 * time.Hour
+	defaultDeleteRetention = 0
 	minDeleteRetention     = 24 * time.Hour
 )
 
