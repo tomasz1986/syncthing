@@ -209,7 +209,7 @@ func migrateToConfigV27(cfg *Configuration) {
 
 func migrateToConfigV25(cfg *Configuration) {
 	for i := range cfg.Folders {
-		cfg.Folders[i].FSWatcherDelayS = 10
+		cfg.Folders[i].FSWatcherDelayS = 5
 	}
 }
 

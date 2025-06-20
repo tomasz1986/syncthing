@@ -94,7 +94,7 @@ angular.module('syncthing.core')
         $scope.versioningDefaults = {
             selector: "none",
             trashcanClean: 0,
-            cleanupIntervalS: 3600,
+            cleanupIntervalS: 86400,
             simpleKeep: 5,
             staggeredMaxAge: 365,
             externalCommand: "",
@@ -2211,12 +2211,12 @@ angular.module('syncthing.core')
         });
 
         $scope.setFSWatcherIntervalDefault = function () {
-            var defaultRescanIntervals = [60, 3600, 3600*24];
+            var defaultRescanIntervals = [60, 3600*24, 3600*24*7];
             if (defaultRescanIntervals.indexOf($scope.currentFolder.rescanIntervalS) === -1) {
                 return;
             }
             var idx;
-            if ($scope.currentFolder.type === 'receiveencrypted') {
+            if ($scope.currentFolder.type === 'receiveonly' || $scope.currentFolder.type === 'receiveencrypted') {
                 idx = 2;
             } else if ($scope.currentFolder.fsWatcherEnabled) {
                 idx = 1;
@@ -2227,14 +2227,16 @@ angular.module('syncthing.core')
         };
 
         $scope.setDefaultsForFolderType = function () {
-            if ($scope.currentFolder.type === 'receiveencrypted') {
+            if ($scope.currentFolder.type === 'receiveonly' || $scope.currentFolder.type === 'receiveencrypted') {
                 $scope.currentFolder.fsWatcherEnabled = false;
-                $scope.currentFolder.ignorePerms = true;
-                delete $scope.currentFolder.versioning;
             } else {
                 $scope.currentFolder.fsWatcherEnabled = true;
             }
+            if ($scope.currentFolder.type === 'receiveencrypted') {
+                delete $scope.currentFolder.versioning;
+            }
             $scope.setFSWatcherIntervalDefault();
+            $scope.currentFolder.ignorePerms = true;
         };
 
         $scope.loadFormIntoScope = function (form) {
