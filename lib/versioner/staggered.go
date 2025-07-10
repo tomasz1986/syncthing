@@ -30,7 +30,7 @@ type interval struct {
 type staggered struct {
 	folderFs        fs.Filesystem
 	versionsFs      fs.Filesystem
-	interval        [4]interval
+	interval        [8]interval
 	copyRangeMethod fs.CopyRangeMethod
 }
 
@@ -46,11 +46,15 @@ func newStaggered(cfg config.FolderConfiguration) Versioner {
 	s := &staggered{
 		folderFs:   cfg.Filesystem(),
 		versionsFs: versionsFs,
-		interval: [4]interval{
-			{30, 60 * 60},                     // first hour -> 30 sec between versions
-			{60 * 60, 24 * 60 * 60},           // next day -> 1 h between versions
-			{24 * 60 * 60, 30 * 24 * 60 * 60}, // next 30 days -> 1 day between versions
-			{7 * 24 * 60 * 60, maxAge},        // next year -> 1 week between versions
+		interval: [8]interval{
+			{60, 60 * 60},                                // during first hour -> 1 minute between versions
+			{60 * 60, 24 * 60 * 60},                      // during first day -> 1 hour between versions
+			{24 * 60 * 60, 30 * 24 * 60 * 60},            // during first 30 days -> 1 day between versions
+			{7 * 24 * 60 * 60, 90 * 24 * 60 * 60},        // during first 90 days -> 1 week between versions
+			{30 * 24 * 60 * 60, 365 * 24 * 60 * 60},      // during first year -> 1 month between versions
+			{90 * 24 * 60 * 60, 2 * 365 * 24 * 60 * 60},  // during second year -> 3 months between versions
+			{180 * 24 * 60 * 60, 3 * 365 * 24 * 60 * 60}, // during third year -> 6 months between versions
+			{365 * 24 * 60 * 60, maxAge},                 // after third year -> 1 year between versions
 		},
 		copyRangeMethod: cfg.CopyRangeMethod.ToFS(),
 	}
