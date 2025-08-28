@@ -236,14 +236,16 @@ func (opts OptionsConfiguration) MaxFolderConcurrency() int {
 	}
 	// Otherwise default to the number of CPU cores in the system as a rough
 	// approximation of system powerfulness.
-	if n := runtime.GOMAXPROCS(-1); n > 0 {
+	minFolderConcurrency := 4
+	if n := runtime.GOMAXPROCS(-1) / 2; n > minFolderConcurrency {
 		return n
+	} else {
+		// We should never get here to begin with, but since we're here let's
+		// use some sort of reasonable compromise between the old "no limit" and
+		// getting nothing done... (Median number of folders out there at time
+		// of writing is two, 95-percentile at 12 folders.)
+		return minFolderConcurrency // https://xkcd.com/221/
 	}
-	// We should never get here to begin with, but since we're here let's
-	// use some sort of reasonable compromise between the old "no limit" and
-	// getting nothing done... (Median number of folders out there at time
-	// of writing is two, 95-percentile at 12 folders.)
-	return 4 // https://xkcd.com/221/
 }
 
 func (opts OptionsConfiguration) MaxConcurrentIncomingRequestKiB() int {
