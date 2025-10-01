@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.ref }} # https://github.com/actions/checkout/issues/882
           token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: stable
 
