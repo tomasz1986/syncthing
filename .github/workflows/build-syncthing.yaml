@@ -56,7 +56,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }} # https://github.com/actions/checkout/issues/882
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ env.GO_VERSION }}
           cache: false
@@ -118,7 +118,7 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
           cache: true
@@ -184,7 +184,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -293,7 +293,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -357,7 +357,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -485,7 +485,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -551,7 +551,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -607,7 +607,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -680,7 +680,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -745,7 +745,7 @@ jobs:
           name: packages-signed
           path: packages
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -806,7 +806,7 @@ jobs:
           name: debian-packages
           path: packages
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -970,7 +970,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -1083,7 +1083,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ needs.facts.outputs.go-version }}
           cache: false
@@ -1104,7 +1104,7 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: 'stable'
 
@@ -1125,7 +1125,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: 'stable'
 
