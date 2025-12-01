@@ -1112,7 +1112,7 @@ jobs:
         run: go run build.go assets
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           only-new-issues: true
 
