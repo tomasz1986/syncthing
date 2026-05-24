@@ -40,7 +40,7 @@ func (o *BlockPullOrder) UnmarshalText(bs []byte) error {
 	case "inOrder":
 		*o = BlockPullOrderInOrder
 	default:
-		*o = BlockPullOrderStandard
+		*o = BlockPullOrderRandom
 	}
 	return nil
 }
