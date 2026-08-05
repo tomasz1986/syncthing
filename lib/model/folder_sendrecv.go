@@ -1780,7 +1780,7 @@ func (f *sendReceiveFolder) dbUpdaterRoutine(dbUpdateChan <-chan dbUpdateJob) in
 	tick := time.NewTicker(maxBatchTime)
 	defer tick.Stop()
 	batch := NewFileInfoBatch(func(files []protocol.FileInfo) error {
-		if !f.DisableFsync {
+		if !f.DisableFsync && !build.IsWindows {
 			f.fsyncDirs(changedDirs)
 		}
 		clear(changedDirs)
