@@ -31,7 +31,7 @@ angular.module('syncthing.core')
                 return;
             }
 
-            setInterval($scope.refresh, 10000);
+            setInterval($scope.refresh, 1000);
             Events.start();
         }
 
